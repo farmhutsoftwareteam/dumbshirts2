@@ -2,8 +2,8 @@ import { Helmet } from 'react-helmet-async';
 
 const SITE_NAME = 'DUMBSHIRTS';
 const DEFAULT_DESCRIPTION = 'One-of-one memetic artifacts. Heavyweight garment-dyed tees. Each piece exists once and is archived upon acquisition.';
-const SITE_URL = 'https://dumbshirts.co';
-const DEFAULT_IMAGE = `${SITE_URL}/videos/dumbshirts-001-hero.png`;
+const SITE_URL = 'https://dumbshirts.co.za';
+const DEFAULT_IMAGE = `${SITE_URL}/og-default.png`;
 
 export default function SEOHead({
   title,
@@ -77,7 +77,7 @@ export function WebSiteSchema() {
         url: SITE_URL,
         logo: {
           '@type': 'ImageObject',
-          url: `${SITE_URL}/favicon.svg`,
+          url: `${SITE_URL}/dumbshirts_logo.png`,
         },
         description: 'Memetic artifacts. One-of-one heavyweight garment-dyed tees. South African streetwear.',
       },

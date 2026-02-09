@@ -4,4 +4,4 @@ Disallow: /admin
 Disallow: /admin/
 Disallow: /test
 
-Sitemap: https://dumbshirts.co/sitemap.xml
+Sitemap: https://dumbshirts.co.za/sitemap.xml

@@ -11,7 +11,7 @@ import { resolve, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const SITE_URL = 'https://dumbshirts.co';
+const SITE_URL = 'https://dumbshirts.co.za';
 const OUTPUT = resolve(__dirname, '..', 'public', 'sitemap.xml');
 
 // Try to load .env manually (no dotenv dep — just parse the file)
