@@ -1,0 +1,106 @@
+/* ============================================================
+   HEAVY HELVETICA — Design Tokens
+   Luxury meme-shirt brand. Dark, brutalist, typographic.
+   ============================================================ */
+
+:root {
+  /* ── Colors ────────────────────────────────────────────── */
+  --color-bg:               #121212;
+  --color-bg-elevated:      #1A1A1A;
+  --color-bg-surface:       #222222;
+
+  --color-text-primary:     rgba(245, 245, 245, 0.87);
+  --color-text-secondary:   rgba(245, 245, 245, 0.60);
+  --color-text-disabled:    rgba(245, 245, 245, 0.38);
+  --color-text-inverse:     #121212;
+
+  --color-border:           #2A2A2A;
+  --color-border-hover:     #3A3A3A;
+  --color-border-active:    #F5F5F5;
+
+  --color-accent:           #F5F5F5;
+  --color-accent-muted:     rgba(245, 245, 245, 0.12);
+
+  --color-error:            #CF6679;
+  --color-success:          #81C784;
+  --color-sold:             rgba(245, 245, 245, 0.30);
+
+  /* ── Typography — Inter, Perfect Fourth (1.333) ───────── */
+  --font-family:            'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --font-weight-regular:    400;
+  --font-weight-medium:     500;
+  --font-weight-semibold:   600;
+  --font-weight-bold:       700;
+
+  /* Perfect Fourth scale: base 16px × 1.333 */
+  --font-size-xs:           0.75rem;     /* 12px */
+  --font-size-sm:           0.875rem;    /* 14px */
+  --font-size-base:         1rem;        /* 16px */
+  --font-size-md:           1.333rem;    /* 21.33px */
+  --font-size-lg:           1.777rem;    /* 28.43px */
+  --font-size-xl:           2.369rem;    /* 37.90px */
+  --font-size-2xl:          3.157rem;    /* 50.52px */
+  --font-size-headline:     4.209rem;    /* 67.34px */
+
+  --line-height-tight:      1.1;
+  --line-height-snug:       1.25;
+  --line-height-normal:     1.5;
+  --line-height-relaxed:    1.65;
+
+  --letter-spacing-tight:   -0.02em;
+  --letter-spacing-normal:  0em;
+  --letter-spacing-wide:    0.05em;
+  --letter-spacing-caps:    0.12em;
+
+  /* ── Spacing ──────────────────────────────────────────── */
+  --space-1:                0.25rem;     /* 4px */
+  --space-2:                0.5rem;      /* 8px */
+  --space-3:                0.75rem;     /* 12px */
+  --space-4:                1rem;        /* 16px */
+  --space-5:                1.5rem;      /* 24px */
+  --space-6:                2rem;        /* 32px */
+  --space-7:                2.5rem;      /* 40px */
+  --space-8:                3rem;        /* 48px */
+  --space-9:                4rem;        /* 64px */
+  --space-10:               5rem;        /* 80px */
+  --space-11:               6rem;        /* 96px */
+  --space-12:               8rem;        /* 128px */
+
+  /* ── Grid ─────────────────────────────────────────────── */
+  --grid-columns:           12;
+  --grid-gutter:            30px;
+  --grid-max-width:         1440px;
+  --grid-margin:            clamp(1rem, 5vw, 4rem);
+
+  /* ── Borders ──────────────────────────────────────────── */
+  --border-width:           1px;
+  --border-color:           var(--color-border);
+  --border:                 var(--border-width) solid var(--border-color);
+  --radius-none:            0px;
+
+  /* ── Touch targets ────────────────────────────────────── */
+  --touch-min:              48px;
+
+  /* ── Motion ───────────────────────────────────────────── */
+  --ease-spring:            cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:               cubic-bezier(0.0, 0.0, 0.2, 1);
+  --ease-in:                cubic-bezier(0.4, 0.0, 1, 1);
+  --ease-in-out:            cubic-bezier(0.4, 0.0, 0.2, 1);
+
+  --duration-instant:       100ms;
+  --duration-fast:          150ms;
+  --duration-normal:        200ms;
+  --duration-slow:          300ms;
+  --duration-reveal:        600ms;
+
+  /* ── Z-index layers ───────────────────────────────────── */
+  --z-base:                 0;
+  --z-dropdown:             100;
+  --z-sticky:               200;
+  --z-overlay:              300;
+  --z-modal:                400;
+  --z-toast:                500;
+  --z-tooltip:              600;
+  --z-max:                  9999;
+}

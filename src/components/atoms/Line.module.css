@@ -1,0 +1,47 @@
+/* ── Line — 1px separator ──────────────────────────────── */
+
+.horizontal {
+  width: 100%;
+  height: 0;
+  border: none;
+  border-top: var(--border-width) solid var(--color-border);
+}
+
+.vertical {
+  width: 0;
+  align-self: stretch;
+  border: none;
+  border-left: var(--border-width) solid var(--color-border);
+}
+
+/* ── Spacing — axis-appropriate margins ────────────────── */
+
+.horizontal.spacingSm {
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.horizontal.spacingMd {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.horizontal.spacingLg {
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-6);
+}
+
+.vertical.spacingSm {
+  margin-left: var(--space-2);
+  margin-right: var(--space-2);
+}
+
+.vertical.spacingMd {
+  margin-left: var(--space-4);
+  margin-right: var(--space-4);
+}
+
+.vertical.spacingLg {
+  margin-left: var(--space-6);
+  margin-right: var(--space-6);
+}

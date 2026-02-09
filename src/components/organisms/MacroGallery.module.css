@@ -1,0 +1,118 @@
+/* ── MacroGallery — PDP image gallery ──────────────────── */
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* ── Main image ────────────────────────────────────────── */
+
+.mainImageArea {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: var(--color-bg-elevated);
+}
+
+.zoomContainer {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+}
+
+.mainMedia {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-out, filter var(--duration-slow) var(--ease-out);
+  will-change: transform;
+}
+
+.zoomHint {
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  padding: 4px 10px;
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  color: var(--color-text-secondary);
+  background: rgba(18, 18, 18, 0.8);
+  pointer-events: none;
+}
+
+.imageLoading {
+  filter: blur(10px);
+}
+
+.imageLoaded {
+  filter: blur(0);
+}
+
+/* ── Thumbnail strip ───────────────────────────────────── */
+
+.thumbnailStrip {
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-2);
+  align-items: flex-start;
+}
+
+.thumbnail {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-none);
+  background: none;
+  cursor: pointer;
+  overflow: hidden;
+  flex-shrink: 0;
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.thumbnail:hover {
+  border-color: var(--color-border-hover);
+}
+
+.thumbnail:focus-visible {
+  outline: var(--border-width) solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.thumbnailActive {
+  border-color: var(--color-border-active);
+}
+
+.thumbnailImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: filter var(--duration-slow) var(--ease-out);
+}
+
+/* ── Video thumbnail ──────────────────────────────────── */
+
+.videoThumb {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-bg-elevated);
+}
+
+.playIcon {
+  font-size: 20px;
+  color: var(--color-text-secondary);
+  line-height: 1;
+}

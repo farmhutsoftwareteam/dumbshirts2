@@ -1,0 +1,59 @@
+/* ── StarkButton — Zero-radius brutalist button ────────── */
+
+.base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: var(--touch-min);
+  padding: 12px 24px;
+  border: none;
+  border-radius: var(--radius-none);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+/* ── Variants ──────────────────────────────────────────── */
+
+.primary {
+  background-color: var(--color-accent);
+  color: var(--color-text-inverse);
+}
+
+.primary:hover {
+  background-color: #e0e0e0;
+}
+
+.secondary {
+  background-color: transparent;
+  color: var(--color-accent);
+  border: var(--border-width) solid var(--color-border);
+}
+
+.secondary:hover {
+  border-color: var(--color-border-hover);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--color-accent);
+  border: none;
+}
+
+.ghost:hover {
+  background-color: var(--color-accent-muted);
+}
+
+/* ── Disabled ──────────────────────────────────────────── */
+
+.disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
