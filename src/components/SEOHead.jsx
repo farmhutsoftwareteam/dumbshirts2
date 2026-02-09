@@ -41,10 +41,76 @@ export default function SEOHead({
   );
 }
 
-/**
- * JSON-LD Product schema for product pages.
- * Renders a <script type="application/ld+json"> tag.
- */
+// ── Schema helpers ──────────────────────────────────────────
+
+function SchemaScript({ schema }) {
+  return (
+    <Helmet>
+      <script type="application/ld+json">{JSON.stringify(schema)}</script>
+    </Helmet>
+  );
+}
+
+function resolveImage(src) {
+  if (!src) return DEFAULT_IMAGE;
+  return src.startsWith('http') ? src : `${SITE_URL}${src}`;
+}
+
+// ── WebSite + Organization (homepage) ───────────────────────
+
+export function WebSiteSchema() {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: SITE_NAME,
+        description: DEFAULT_DESCRIPTION,
+        publisher: { '@id': `${SITE_URL}/#organization` },
+      },
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${SITE_URL}/favicon.svg`,
+        },
+        description: 'Memetic artifacts. One-of-one heavyweight garment-dyed tees. South African streetwear.',
+      },
+    ],
+  };
+
+  return <SchemaScript schema={schema} />;
+}
+
+// ── ItemList (homepage product listing) ─────────────────────
+
+export function ItemListSchema({ products }) {
+  if (!products || products.length === 0) return null;
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'DUMBSHIRTS Drops',
+    numberOfItems: products.length,
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${SITE_URL}/drop/${p.dropNumber}`,
+      name: p.title,
+      image: resolveImage(p.images?.hero),
+    })),
+  };
+
+  return <SchemaScript schema={schema} />;
+}
+
+// ── Product (product detail page) ───────────────────────────
+
 export function ProductSchema({ product }) {
   if (!product) return null;
 
@@ -53,11 +119,7 @@ export function ProductSchema({ product }) {
     '@type': 'Product',
     name: product.title,
     description: product.memeOrigin,
-    image: product.images?.hero
-      ? (product.images.hero.startsWith('http')
-          ? product.images.hero
-          : `${SITE_URL}${product.images.hero}`)
-      : DEFAULT_IMAGE,
+    image: resolveImage(product.images?.hero),
     sku: `DS-${product.dropNumber}`,
     brand: {
       '@type': 'Brand',
@@ -88,9 +150,54 @@ export function ProductSchema({ product }) {
     ],
   };
 
-  return (
-    <Helmet>
-      <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
-  );
+  return <SchemaScript schema={schema} />;
+}
+
+// ── BreadcrumbList (product detail page) ────────────────────
+
+export function BreadcrumbSchema({ product }) {
+  if (!product) return null;
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Shop',
+        item: SITE_URL,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: `Drop #${product.dropNumber}`,
+        item: `${SITE_URL}/drop/${product.dropNumber}`,
+      },
+    ],
+  };
+
+  return <SchemaScript schema={schema} />;
+}
+
+// ── VideoObject (product video) ─────────────────────────────
+
+export function VideoSchema({ product }) {
+  if (!product?.video) return null;
+
+  const videoUrl = product.video.startsWith('http')
+    ? product.video
+    : `${SITE_URL}${product.video}`;
+
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: `${product.title} — Product Video`,
+    description: `Video showcase of ${product.title}, a one-of-one DUMBSHIRTS artifact. ${product.material ? product.material.split('.')[0] + '.' : ''}`,
+    thumbnailUrl: resolveImage(product.images?.hero),
+    contentUrl: videoUrl,
+    uploadDate: new Date().toISOString().split('T')[0],
+  };
+
+  return <SchemaScript schema={schema} />;
 }

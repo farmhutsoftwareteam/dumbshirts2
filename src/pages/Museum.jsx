@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { pageVariants, pageTransition, fadeUp, stagger } from '../utils/animations';
 import { useProduct } from '../hooks/useProducts';
 import { useCart } from '../context/CartContext';
-import SEOHead, { ProductSchema } from '../components/SEOHead';
+import SEOHead, { ProductSchema, BreadcrumbSchema, VideoSchema } from '../components/SEOHead';
 import MacroGallery from '../components/organisms/MacroGallery';
 import ScarcityMarker from '../components/molecules/ScarcityMarker';
 import StarkButton from '../components/atoms/StarkButton';
@@ -69,6 +69,8 @@ export default function Museum() {
         type="product"
       />
       <ProductSchema product={product} />
+      <BreadcrumbSchema product={product} />
+      <VideoSchema product={product} />
 
       <Link to="/" className={styles.backLink}>
         &larr; Return to Index
