@@ -1,12 +1,12 @@
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition, fadeUp, stagger } from '../utils/animations';
-import { getSoldProducts } from '../data/products';
+import { useProducts } from '../hooks/useProducts';
 import ProductCard from '../components/molecules/ProductCard';
 import Line from '../components/atoms/Line';
 import styles from './Vault.module.css';
 
 export default function Vault() {
-  const soldProducts = getSoldProducts();
+  const { products: soldProducts, loading } = useProducts('sold');
 
   return (
     <motion.div
@@ -19,13 +19,24 @@ export default function Vault() {
     >
       <header className={styles.header}>
         <h1 className={styles.title}>Archive</h1>
-        <p className={styles.subtitle}>
-          {soldProducts.length} artifact{soldProducts.length !== 1 ? 's' : ''} — permanently removed from circulation
-        </p>
+        {!loading && (
+          <p className={styles.subtitle}>
+            {soldProducts.length} artifact{soldProducts.length !== 1 ? 's' : ''} — permanently removed from circulation
+          </p>
+        )}
       </header>
       <Line direction="horizontal" spacing="lg" />
 
-      {soldProducts.length === 0 ? (
+      {loading ? (
+        <motion.p
+          className={styles.loading}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          LOADING ARTIFACTS...
+        </motion.p>
+      ) : soldProducts.length === 0 ? (
         <div className={styles.empty}>
           <p className={styles.emptyText}>No artifacts archived</p>
         </div>

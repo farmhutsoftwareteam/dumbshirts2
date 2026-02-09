@@ -1,7 +1,7 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition, fadeUp, stagger } from '../utils/animations';
-import { getProductByDropNumber } from '../data/products';
+import { useProduct } from '../hooks/useProducts';
 import { useCart } from '../context/CartContext';
 import MacroGallery from '../components/organisms/MacroGallery';
 import ScarcityMarker from '../components/molecules/ScarcityMarker';
@@ -11,8 +11,30 @@ import styles from './Museum.module.css';
 
 export default function Museum() {
   const { dropNumber } = useParams();
-  const product = getProductByDropNumber(dropNumber);
+  const { product, loading } = useProduct(dropNumber);
   const { addToCart, cart } = useCart();
+
+  if (loading) {
+    return (
+      <motion.div
+        className={styles.page}
+        variants={pageVariants}
+        initial="initial"
+        animate="animate"
+        exit="exit"
+        transition={pageTransition}
+      >
+        <motion.p
+          className={styles.loading}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6 }}
+        >
+          LOADING ARTIFACT...
+        </motion.p>
+      </motion.div>
+    );
+  }
 
   if (!product) {
     return <Navigate to="/" replace />;
@@ -87,12 +109,12 @@ export default function Museum() {
         <div className={styles.footerInner}>
           {isSold ? (
             <>
-              <span className={styles.price}>${product.price}</span>
+              <span className={styles.price}>R{product.price}</span>
               <span className={styles.soldBadge}>Removed from circulation</span>
             </>
           ) : (
             <>
-              <span className={styles.price}>${product.price}</span>
+              <span className={styles.price}>R{product.price}</span>
               <StarkButton
                 variant="primary"
                 onClick={handleAcquire}

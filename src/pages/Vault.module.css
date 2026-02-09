@@ -26,6 +26,14 @@
   text-transform: uppercase;
 }
 
+.loading {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-disabled);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-caps);
+  padding: var(--space-9) 0;
+}
+
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -42,4 +50,14 @@
   color: var(--color-text-disabled);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
+}
+
+@media (max-width: 768px) {
+  .header {
+    padding: var(--space-8) 0 var(--space-6);
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
 }

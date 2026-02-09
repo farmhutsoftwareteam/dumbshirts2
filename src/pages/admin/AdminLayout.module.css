@@ -1,0 +1,101 @@
+.layout {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 var(--space-5);
+  background: var(--color-bg-elevated);
+  border-bottom: var(--border-width) solid var(--color-border);
+}
+
+.logo {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.logo:hover {
+  color: var(--color-accent);
+}
+
+.headerRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.email {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.signOut {
+  background: none;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-none);
+  color: var(--color-text-secondary);
+  font-family: var(--font-family);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-caps);
+  padding: var(--space-2) var(--space-4);
+  cursor: pointer;
+  transition: color var(--duration-fast) var(--ease-out),
+              border-color var(--duration-fast) var(--ease-out);
+}
+
+.signOut:hover {
+  color: var(--color-text-primary);
+  border-color: var(--color-border-hover);
+}
+
+.body {
+  display: flex;
+}
+
+.main {
+  flex: 1;
+  padding: var(--space-6);
+  min-height: calc(100vh - 56px);
+  overflow-y: auto;
+}
+
+.loadingPage {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg);
+}
+
+.loadingText {
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-disabled);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-caps);
+}
+
+@media (max-width: 768px) {
+  .body {
+    flex-direction: column;
+  }
+
+  .main {
+    padding: var(--space-4);
+  }
+
+  .email {
+    display: none;
+  }
+}
