@@ -7,8 +7,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 64px;
-  padding: 0 30px;
+  height: 56px;
+  padding: 0 var(--grid-gutter);
   background-color: rgba(18, 18, 18, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -38,7 +38,7 @@
 .links {
   display: flex;
   align-items: center;
-  gap: var(--space-6);
+  gap: clamp(var(--space-3), 4vw, var(--space-6));
 }
 
 /* ── Individual link ───────────────────────────────────── */
@@ -53,7 +53,10 @@
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
   text-align: left;
-  padding: var(--space-2) 0;
+  padding: var(--space-3) 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
   transition: color var(--duration-fast) var(--ease-out);
 }
 
@@ -87,7 +90,10 @@
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
   text-align: left;
-  padding: var(--space-2) 0;
+  padding: var(--space-3) 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
   transition: color var(--duration-fast) var(--ease-out);
 }
 

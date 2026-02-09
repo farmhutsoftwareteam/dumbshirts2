@@ -97,3 +97,10 @@
   text-align: left;
   padding: 0 var(--space-1);
 }
+
+@media (max-width: 768px) {
+  .card {
+    max-width: 100%;
+    gap: var(--space-3);
+  }
+}

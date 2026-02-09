@@ -15,3 +15,10 @@
   min-height: 80vh;
   width: 100%;
 }
+
+@media (max-width: 768px) {
+  .cardContainer {
+    min-height: auto;
+    padding: var(--space-6) 0;
+  }
+}

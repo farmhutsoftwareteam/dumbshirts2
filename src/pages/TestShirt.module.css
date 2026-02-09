@@ -1,7 +1,7 @@
 .page {
   display: grid;
   grid-template-columns: 1fr 320px;
-  min-height: calc(100vh - 64px);
+  min-height: calc(100vh - 56px);
   max-width: var(--grid-max-width);
   margin: 0 auto;
 }
@@ -9,7 +9,7 @@
 .canvasWrap {
   position: relative;
   width: 100%;
-  height: calc(100vh - 64px);
+  height: calc(100vh - 56px);
   background-color: var(--color-bg);
   cursor: grab;
 }
@@ -49,10 +49,10 @@
 }
 
 .colorSwatch {
-  width: 36px;
-  height: 36px;
-  min-height: 36px;
-  min-width: 36px;
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  min-width: 44px;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius-none);
   cursor: pointer;
@@ -104,14 +104,24 @@
 @media (max-width: 768px) {
   .page {
     grid-template-columns: 1fr;
+    min-height: auto;
   }
 
   .canvasWrap {
-    height: 60vh;
+    height: 55vh;
   }
 
   .controls {
     border-left: none;
     border-top: var(--border-width) solid var(--color-border);
+    padding: var(--space-5);
+  }
+
+  .textInput {
+    font-size: 16px; /* prevents iOS zoom on focus */
+  }
+
+  .textArea {
+    font-size: 16px;
   }
 }

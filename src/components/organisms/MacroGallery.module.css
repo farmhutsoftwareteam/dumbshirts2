@@ -116,3 +116,20 @@
   color: var(--color-text-secondary);
   line-height: 1;
 }
+
+@media (max-width: 768px) {
+  .thumbnailStrip {
+    gap: var(--space-1);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .thumbnail {
+    width: 60px;
+    height: 60px;
+  }
+
+  .zoomContainer {
+    cursor: default;
+  }
+}
