@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { pageVariants, pageTransition, fadeUp, stagger } from '../utils/animations';
 import { useProduct } from '../hooks/useProducts';
 import { useCart } from '../context/CartContext';
+import SEOHead, { ProductSchema } from '../components/SEOHead';
 import MacroGallery from '../components/organisms/MacroGallery';
 import ScarcityMarker from '../components/molecules/ScarcityMarker';
 import StarkButton from '../components/atoms/StarkButton';
@@ -49,6 +50,8 @@ export default function Museum() {
     }
   };
 
+  const seoDescription = `${product.title} — ${product.material ? product.material.split('.')[0] : 'Heavyweight garment-dyed tee'}. R${product.price}. One of one in existence. ${isSold ? 'Archived.' : 'Available for acquisition.'}`;
+
   return (
     <motion.div
       className={`${styles.page} ${styles.pageBottom}`}
@@ -58,6 +61,15 @@ export default function Museum() {
       exit="exit"
       transition={pageTransition}
     >
+      <SEOHead
+        title={`${product.title} — Drop #${product.dropNumber}`}
+        description={seoDescription}
+        image={product.images?.hero?.startsWith('http') ? product.images.hero : undefined}
+        url={`/drop/${product.dropNumber}`}
+        type="product"
+      />
+      <ProductSchema product={product} />
+
       <Link to="/" className={styles.backLink}>
         &larr; Return to Index
       </Link>
@@ -101,7 +113,7 @@ export default function Museum() {
         </motion.div>
 
         <motion.div className={styles.gallery} variants={fadeUp}>
-          <MacroGallery images={product.images} video={product.video} />
+          <MacroGallery product={product} />
         </motion.div>
       </motion.div>
 

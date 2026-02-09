@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition, fadeUp, stagger } from '../utils/animations';
 import { useProducts } from '../hooks/useProducts';
+import SEOHead from '../components/SEOHead';
 import ProductCard from '../components/molecules/ProductCard';
 import Line from '../components/atoms/Line';
 import styles from './Vault.module.css';
@@ -17,6 +18,12 @@ export default function Vault() {
       exit="exit"
       transition={pageTransition}
     >
+      <SEOHead
+        title="Archive — Sold Out Drops"
+        description="Previously available DUMBSHIRTS artifacts. Permanently removed from circulation. One of one — once they're gone, they're gone."
+        url="/vault"
+      />
+
       <header className={styles.header}>
         <h1 className={styles.title}>Archive</h1>
         {!loading && (

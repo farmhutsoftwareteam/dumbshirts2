@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { pageVariants, pageTransition } from '../utils/animations';
 import { useProducts } from '../hooks/useProducts';
+import SEOHead from '../components/SEOHead';
 import TheFeed from '../components/organisms/TheFeed';
 import Line from '../components/atoms/Line';
 import styles from './Home.module.css';
@@ -17,8 +18,14 @@ export default function Home() {
       exit="exit"
       transition={pageTransition}
     >
+      <SEOHead
+        title="Shop One-of-One Meme Tees"
+        description="DUMBSHIRTS: heavyweight garment-dyed tees featuring internet artifacts. Each piece is one of one in existence. South African streetwear."
+        url="/"
+      />
+
       <header className={styles.header}>
-        <h1 className={styles.title}>Index</h1>
+        <h1 className={styles.title}>DUMBSHIRTS</h1>
         {!loading && (
           <p className={styles.subtitle}>{products.length} {products.length === 1 ? 'artifact' : 'artifacts'} — each one of one in existence</p>
         )}

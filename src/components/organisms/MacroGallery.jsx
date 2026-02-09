@@ -1,10 +1,19 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './MacroGallery.module.css';
+
+function useIsTouchDevice() {
+  const [isTouch, setIsTouch] = useState(false);
+  useEffect(() => {
+    setIsTouch('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+  return isTouch;
+}
 
 function VideoPlayer({ src }) {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
+  const isTouch = useIsTouchDevice();
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState({ x: 50, y: 50 });
 
@@ -21,13 +30,31 @@ function VideoPlayer({ src }) {
     setOrigin({ x: 50, y: 50 });
   }, []);
 
+  const handleTap = useCallback((e) => {
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.changedTouches?.[0] || e;
+    const x = ((touch.clientX - rect.left) / rect.width) * 100;
+    const y = ((touch.clientY - rect.top) / rect.height) * 100;
+    setOrigin({ x, y });
+    setZoomed((z) => !z);
+  }, []);
+
+  const mouseHandlers = isTouch ? {} : {
+    onMouseMove: handleMouseMove,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
+  };
+
+  const touchHandlers = isTouch ? {
+    onClick: handleTap,
+  } : {};
+
   return (
     <div
       ref={containerRef}
       className={styles.zoomContainer}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      {...mouseHandlers}
+      {...touchHandlers}
     >
       <video
         ref={videoRef}
@@ -42,13 +69,18 @@ function VideoPlayer({ src }) {
         muted
         playsInline
       />
-      {!zoomed && <div className={styles.zoomHint}>Hover to zoom</div>}
+      {!zoomed && (
+        <div className={styles.zoomHint}>
+          {isTouch ? 'Tap to zoom' : 'Hover to zoom'}
+        </div>
+      )}
     </div>
   );
 }
 
 function ZoomableImage({ src, alt, index, loadedImages, onLoad }) {
   const containerRef = useRef(null);
+  const isTouch = useIsTouchDevice();
   const [zoomed, setZoomed] = useState(false);
   const [origin, setOrigin] = useState({ x: 50, y: 50 });
 
@@ -65,13 +97,31 @@ function ZoomableImage({ src, alt, index, loadedImages, onLoad }) {
     setOrigin({ x: 50, y: 50 });
   }, []);
 
+  const handleTap = useCallback((e) => {
+    const rect = containerRef.current.getBoundingClientRect();
+    const touch = e.changedTouches?.[0] || e;
+    const x = ((touch.clientX - rect.left) / rect.width) * 100;
+    const y = ((touch.clientY - rect.top) / rect.height) * 100;
+    setOrigin({ x, y });
+    setZoomed((z) => !z);
+  }, []);
+
+  const mouseHandlers = isTouch ? {} : {
+    onMouseMove: handleMouseMove,
+    onMouseEnter: handleMouseEnter,
+    onMouseLeave: handleMouseLeave,
+  };
+
+  const touchHandlers = isTouch ? {
+    onClick: handleTap,
+  } : {};
+
   return (
     <div
       ref={containerRef}
       className={styles.zoomContainer}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+      {...mouseHandlers}
+      {...touchHandlers}
     >
       <motion.img
         key={index}
@@ -88,12 +138,23 @@ function ZoomableImage({ src, alt, index, loadedImages, onLoad }) {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
       />
-      {!zoomed && <div className={styles.zoomHint}>Hover to zoom</div>}
+      {!zoomed && (
+        <div className={styles.zoomHint}>
+          {isTouch ? 'Tap to zoom' : 'Hover to zoom'}
+        </div>
+      )}
     </div>
   );
 }
 
-export default function MacroGallery({ images, video }) {
+const VIEW_LABELS = ['hero', 'front detail', 'close-up detail', 'alternate view'];
+
+export default function MacroGallery({ product, images: legacyImages, video: legacyVideo }) {
+  // Support both new { product } and legacy { images, video } props
+  const images = product?.images || legacyImages || {};
+  const video = product?.video || legacyVideo;
+  const productTitle = product?.title || 'DUMBSHIRTS product';
+
   const { hero, macro1, macro2, macro3 } = images;
   const allImages = [hero, macro1, macro2, macro3].filter(Boolean);
   const [selectedIndex, setSelectedIndex] = useState(video ? -1 : 0);
@@ -105,6 +166,10 @@ export default function MacroGallery({ images, video }) {
 
   const showingVideo = selectedIndex === -1 && video;
 
+  const getAlt = (index) => {
+    return `${productTitle} — ${VIEW_LABELS[index] || `view ${index + 1}`}`;
+  };
+
   return (
     <div className={styles.gallery}>
       <div className={styles.mainImageArea}>
@@ -115,7 +180,7 @@ export default function MacroGallery({ images, video }) {
             <ZoomableImage
               key={selectedIndex}
               src={allImages[selectedIndex]}
-              alt={`Product view ${selectedIndex + 1}`}
+              alt={getAlt(selectedIndex)}
               index={selectedIndex}
               loadedImages={loadedImages}
               onLoad={() => handleImageLoad(`main-${selectedIndex}`)}
@@ -129,7 +194,7 @@ export default function MacroGallery({ images, video }) {
           <button
             className={`${styles.thumbnail} ${selectedIndex === -1 ? styles.thumbnailActive : ''}`}
             onClick={() => setSelectedIndex(-1)}
-            aria-label="View video"
+            aria-label={`Play ${productTitle} video`}
             type="button"
           >
             <div className={styles.videoThumb}>
@@ -142,12 +207,12 @@ export default function MacroGallery({ images, video }) {
             key={index}
             className={`${styles.thumbnail} ${index === selectedIndex ? styles.thumbnailActive : ''}`}
             onClick={() => setSelectedIndex(index)}
-            aria-label={`View image ${index + 1}`}
+            aria-label={getAlt(index)}
             type="button"
           >
             <img
               src={src}
-              alt={`Thumbnail ${index + 1}`}
+              alt={`${productTitle} thumbnail — ${VIEW_LABELS[index] || `view ${index + 1}`}`}
               className={`${styles.thumbnailImage} ${loadedImages[`thumb-${index}`] ? styles.imageLoaded : styles.imageLoading}`}
               onLoad={() => handleImageLoad(`thumb-${index}`)}
               loading="lazy"

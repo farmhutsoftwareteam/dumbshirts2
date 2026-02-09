@@ -48,7 +48,7 @@ export default function ProductCard({ product }) {
         ) : (
           <img
             src={images?.hero || images?.[0]}
-            alt={title}
+            alt={`${title} — DUMBSHIRTS Drop #${dropNumber} ${isSold ? '(Sold)' : ''}`}
             className={`${styles.heroImage} ${imageLoaded ? styles.imageLoaded : styles.imageLoading}`}
             onLoad={() => setImageLoaded(true)}
             loading="lazy"
